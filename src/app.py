@@ -9,15 +9,6 @@ broker = os.getenv("V_BROKER")
 # db_path = "/tmp/testdir/mqtt-logs/"
 db_path = os.getenv("V_DB_PATH")
 
-# TMP FILE TEST START
-os.makedirs(db_path, exist_ok=True)
-file_path = os.path.join(db_path, "pythonwrite.txt")
-with open(file_path, "w") as file:
-    file.write(db_path)
-print(f"File {file_path} created with content.")
-# TMP FILE TEST END
-
-
 print("=== RUN MQTTLOGGER ===")
 print(broker)
 # print(port)
@@ -25,7 +16,8 @@ print(db_path)
 
 # Define the topic to subscribe to
 # topics = [("status/#", 0), ("var/#", 0)]
-topics = [("status/#", 0), ("var/#", 0)]
+topics = [("status/#", 0), ("controller/#", 0), ("datacollector/#", 0), ("mobile/#", 0), ("var/#", 0), ("varfast/#", 0)]
+
 ##### VARIABLES END  ######
 
 # Define the callback function for when a message is received
