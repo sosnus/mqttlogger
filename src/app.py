@@ -8,6 +8,10 @@ port = 1883
 # db_path = "/tmp/testdir/mqtt-logs/"
 db_path = "../tmp/"
 
+print("=== RUN MQTTLOGGER ===")
+print(broker)
+print(port)
+print(db_path)
 
 # Define the topic to subscribe to
 # topics = [("status/#", 0), ("var/#", 0)]
