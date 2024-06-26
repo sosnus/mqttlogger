@@ -5,7 +5,7 @@ import os
 ##### VARIABLES START ######
 # Define the MQTT broker and port
 broker = os.getenv("V_BROKER")
-port = os.getenv("V_PORT")
+# port = os.getenv("V_PORT")
 # db_path = "/tmp/testdir/mqtt-logs/"
 db_path = os.getenv("V_DB_PATH")
 
@@ -20,7 +20,7 @@ print(f"File {file_path} created with content.")
 
 print("=== RUN MQTTLOGGER ===")
 print(broker)
-print(port)
+# print(port)
 print(db_path)
 
 # Define the topic to subscribe to
@@ -61,7 +61,9 @@ topic = "mqttlogger/ok"
 sqlitehelper.insert_message(message, topic)
 
 # Connect to the MQTT broker
-client.connect(broker, port, 60)
+# client.connect(broker, 60)
+client.connect(broker, 1883, 60)
+# client.connect(broker, port, 60)
 
 # Start the MQTT client loop to process network traffic and dispatch callbacks
 client.loop_forever()
