@@ -28,12 +28,12 @@ def insert_message(message, topic):
 
 # Create the database and table if they don't exist
 def init_db(path):
-    print(path)
     # print(whole_path)
     whole_path = path+db_file
     global whole_path_global
     whole_path_global = whole_path
-    print(f"!!!Create file: whole_path:")
+    print(f">>> sqlite helper: Create file: path, whole_path_global, whole_path:")
+    print(path)
     print(whole_path_global)
     print(whole_path)
     conn = sqlite3.connect(whole_path)
