@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 import sqlitehelper as sqlitehelper
+import os
 
 ##### VARIABLES START ######
 # Define the MQTT broker and port
@@ -7,6 +8,15 @@ broker = "10.10.10.210"
 port = 1883
 # db_path = "/tmp/testdir/mqtt-logs/"
 db_path = "../tmp/"
+
+# TMP FILE TEST START
+os.makedirs(db_path, exist_ok=True)
+file_path = os.path.join(db_path, "pythonwrite.txt")
+with open(file_path, "w") as file:
+    file.write(db_path)
+print(f"File {file_path} created with content.")
+# TMP FILE TEST END
+
 
 print("=== RUN MQTTLOGGER ===")
 print(broker)
@@ -22,10 +32,12 @@ topics = [("status/#", 0), ("var/#", 0)]
 def on_message(client, userdata, message):
     print(f"Received message '{message.payload.decode()}' on topic '{message.topic}' with QoS {message.qos}")
     sqlitehelper.insert_message(message.payload.decode(), message.topic)
+    client.publish("logs/mqttlogger", "new msg!")
 # Define the callback function for when the client connects to the broker
 def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
         print("Connected successfully")
+        client.publish("logs/mqttlogger", "Connected successfully")
         sqlitehelper.insert_message("Connected successfully", "mqttlogger/ok")
         # Subscribe to the topic
         client.subscribe(topics)
