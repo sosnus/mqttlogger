@@ -1,1 +1,2 @@
 tmp/*.db
+src/__pycache__/*.pyc
