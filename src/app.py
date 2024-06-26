@@ -5,12 +5,12 @@ import os
 ##### VARIABLES START ######
 # Define the MQTT broker and port
 broker = os.getenv("V_BROKER")
+db_path = os.getenv("V_DB_PATH")
 # port = os.getenv("V_PORT")
 # db_path = "/tmp/testdir/mqtt-logs/"
-db_path = os.getenv("V_DB_PATH")
 
-print(">>> build time: 2024-06-26")
-print("=== RUN MQTTLOGGER (app.py) ===")
+print(">>> build time: 2024-06-26v03")
+print(">>>=== RUN MQTTLOGGER (app.py) ===")
 print(">>> app.py: broker, db_path")
 print(broker)
 # print(port)
@@ -30,13 +30,13 @@ def on_message(client, userdata, message):
 # Define the callback function for when the client connects to the broker
 def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
-        print("Connected successfully")
+        print(">>> Connected successfully")
         client.publish("logs/mqttlogger", "Connected successfully")
         sqlitehelper.insert_message("Connected successfully", "mqttlogger/ok")
         # Subscribe to the topic
         client.subscribe(topics)
     else:
-        print(f"Connect failed with code {rc}")
+        print(f">>> Connect failed with code {rc}")
         sqlitehelper.insert_message("Connect failed with code {rc}", "mqttlogger/error")
 
 
