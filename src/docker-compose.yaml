@@ -2,8 +2,11 @@ version: '3.8'
 
 services:
   mqttlogger:
-    build: .
+    image: sosnus15/mqttlogger
     container_name: mqttlogger_container
-    volumes:
-      - .:/app
     restart: always
+    environment:
+      V_BROKER: "10.10.10.210"
+      V_DB_PATH: "/tmp/testdir/mqtt-logs/"
+    volumes:
+        - /home/recomputer/agroworkspace/agrostackdata/mqttlogger/mqtt-logs/:/tmp/testdir2/
