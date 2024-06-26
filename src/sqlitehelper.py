@@ -1,5 +1,7 @@
 import sqlite3
 from datetime import datetime
+import os
+
 
 # Generate the database file name based on the current datetime
 current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -25,6 +27,14 @@ def insert_message(message, topic):
     conn.commit()
     conn.close()
 
+def check_path(path):
+    if not os.path.exists(path):
+        # Create the directory if it does not exist
+        os.makedirs(path)
+        print(f'>>> [sqlite helper] Directory {path} created.')
+    else:
+        print(f'>>> [sqlite helper] Directory {path} already exists.')
+
 
 # Create the database and table if they don't exist
 def init_db(path):
@@ -32,7 +42,7 @@ def init_db(path):
     whole_path = path+db_file
     global whole_path_global
     whole_path_global = whole_path
-    print(f">>> sqlite helper: Create file: path, whole_path_global, whole_path:")
+    print(f">>> [sqlite helper] Create file: path, whole_path_global, whole_path:")
     print(path)
     print(whole_path_global)
     print(whole_path)
