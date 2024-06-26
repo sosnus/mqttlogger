@@ -15,6 +15,8 @@ print(">>> app.py: broker, db_path")
 print(broker)
 # print(port)
 print(db_path)
+sqlitehelper.check_path(db_path)
+
 
 # Define the topic to subscribe to
 # topics = [("status/#", 0), ("var/#", 0)]
