@@ -33,8 +33,9 @@ def init_db(path):
     whole_path = path+db_file
     global whole_path_global
     whole_path_global = whole_path
-    print(f"Create file: whole_path:")
+    print(f"!!!Create file: whole_path:")
     print(whole_path_global)
+    print(whole_path)
     conn = sqlite3.connect(whole_path)
     cursor = conn.cursor()
     cursor.execute(create_table_sql)
