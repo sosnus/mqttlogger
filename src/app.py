@@ -9,13 +9,15 @@ db_path = os.getenv("V_DB_PATH")
 # port = os.getenv("V_PORT")
 # db_path = "/tmp/testdir/mqtt-logs/"
 
-print(">>> build time: 2024-06-26v03")
+print(">>> build time: 2024-06-26v04")
 print(">>>=== RUN MQTTLOGGER (app.py) ===")
 print(">>> app.py: broker, db_path")
 print(broker)
 # print(port)
 print(db_path)
 sqlitehelper.check_path(db_path)
+with open(db_path+"example.txt", "w") as file:
+    file.write("hello")
 
 
 # Define the topic to subscribe to
