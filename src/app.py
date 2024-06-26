@@ -9,7 +9,9 @@ broker = os.getenv("V_BROKER")
 # db_path = "/tmp/testdir/mqtt-logs/"
 db_path = os.getenv("V_DB_PATH")
 
-print("=== RUN MQTTLOGGER ===")
+print(">>> build time: 2024-06-26")
+print("=== RUN MQTTLOGGER (app.py) ===")
+print(">>> app.py: broker, db_path")
 print(broker)
 # print(port)
 print(db_path)
