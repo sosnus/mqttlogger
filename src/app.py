@@ -4,10 +4,10 @@ import os
 
 ##### VARIABLES START ######
 # Define the MQTT broker and port
-broker = "10.10.10.210"
-port = 1883
+broker = os.getenv("V_BROKER")
+port = os.getenv("V_PORT")
 # db_path = "/tmp/testdir/mqtt-logs/"
-db_path = "../tmp/"
+db_path = os.getenv("V_DB_PATH")
 
 # TMP FILE TEST START
 os.makedirs(db_path, exist_ok=True)
