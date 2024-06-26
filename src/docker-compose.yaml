@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  mqttlogger:
+    build: .
+    container_name: mqttlogger_container
+    volumes:
+      - .:/app
+    restart: always
