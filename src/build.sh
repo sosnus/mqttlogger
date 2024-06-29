@@ -8,3 +8,4 @@ docker build --platform arm64 --tag sosnus15/mqttlogger .
 sudo docker push sosnus15/mqttlogger:latest
 sudo docker push sosnus15/mqttlogger:$tag
 sudo docker pull sosnus15/mqttlogger
+# https://github.com/sosnus/mqttlogger
