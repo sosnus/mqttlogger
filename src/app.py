@@ -8,7 +8,7 @@ broker = os.getenv("V_BROKER")
 topic_str = os.getenv("V_TOPICS")
 # topic_str = "controller,datacollector,mobile,var,varfast,logs,status" # example
 db_path = "/tmp/mqttlogger/mqtt-logs/"
-version = "v1.0.14___2024-06-29"
+version = "v1.0.15___2024-06-29"
 # if broker == None:
     # broker = "192.168.88.203"
 if topic_str == None:
@@ -35,13 +35,13 @@ print(f">>> subscribe topics list: {topics}")
 def on_message(client, userdata, message):
     message_payload = message.payload.decode('utf-8',errors='replace')
     sqlitehelper.insert_message(message_payload, message.topic)
-    client.publish("logs/mqttlogger", f"msg from {message.topic} len={len(message_payload)} logged")
+    client.publish("mqttlogger/mqttlogger", f"msg from {message.topic} len={len(message_payload)} logged")
     print(f">>> msg from {message.topic} len={len(message_payload)} logged")
 # Define the callback function for when the client connects to the broker
 def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
         print(">>> Connected successfully")
-        client.publish("logs/mqttlogger", "Connected successfully")
+        client.publish("mqttlogger/mqttlogger", "Connected successfully")
         sqlitehelper.insert_message("Connected successfully", "mqttlogger/ok")
         # Subscribe to the topic
         client.subscribe(topics)
