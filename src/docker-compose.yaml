@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       V_BROKER: "10.10.10.210"
-      V_TOPICS: "controller,datacollector,mobile,var,varfast"
+      V_TOPICS: "controller,datacollector,mobile,var,varfast,logs,status"
       TZ: "Europe/Warsaw"
       LANG: "pl_PL.UTF-8"
       LC_ALL: "pl_PL.UTF-8"
