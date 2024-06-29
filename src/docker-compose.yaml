@@ -7,6 +7,6 @@ services:
     restart: always
     environment:
       V_BROKER: "10.10.10.210"
-      # V_DB_PATH: "/var/mqttlogger/mqtt-logs/"
+      # V_DB_PATH: "/tmp/mqttlogger/mqtt-logs/"
     volumes:
-        - /home/recomputer/agroworkspace/agrostackdata/mqttlogger/:/var/mqttlogger/
+        - /home/recomputer/agroworkspace/agrostackdata/mqttlogger/:/tmp/mqttlogger/

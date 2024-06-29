@@ -5,7 +5,7 @@ import os
 ##### VARIABLES START ######
 # Define the MQTT broker and port
 broker = os.getenv("V_BROKER")
-db_path = "/var/mqttlogger/mqtt-logs/"
+db_path = "/tmp/mqttlogger/mqtt-logs/"
 # db_path = os.getenv("V_DB_PATH")
 if broker == None:
     broker = "192.168.88.203"
