@@ -19,12 +19,14 @@ CREATE TABLE IF NOT EXISTS messages (
 
 # Function to insert a message into the database
 def insert_message(message, topic):
-    message_utf8 = message.encode('utf-8')
+    message_processed = message
+    # print(" >>> message_processed")
+    # print(message_processed)
     global whole_path_global
     received_time = datetime.now()
     conn = sqlite3.connect(whole_path_global)
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO messages (received_time, message, topic) VALUES (?, ?, ?)", (received_time, message_utf8, topic))
+    cursor.execute("INSERT INTO messages (received_time, message, topic) VALUES (?, ?, ?)", (received_time, message_processed, topic))
     conn.commit()
     conn.close()
 
