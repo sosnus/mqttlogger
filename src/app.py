@@ -8,7 +8,7 @@ broker = os.getenv("V_BROKER")
 db_path = os.getenv("V_DB_PATH")
 if broker == None:
     broker = "192.168.88.203"
-    db_path = "/tmp/testdir/mqtt-logs/"
+    db_path = "/var/mqttlogger/mqtt-logs/"
 
 
 print(">>> build time: 2024-06-29v08")

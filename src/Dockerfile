@@ -3,5 +3,5 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-RUN mkdir -p /tmp/testdir/mqtt-logs/
+RUN mkdir -p /var/mqttlogger/mqtt-logs/
 CMD ["python", "./app.py"]
