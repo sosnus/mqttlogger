@@ -12,8 +12,8 @@ if broker == None:
 
 
 print(">>> build time: 2024-06-29v08")
-print(">>>=== RUN MQTTLOGGER (app.py) ===")
-print(">>> app.py: broker, db_path")
+print(">>> === RUN MQTTLOGGER (app.py) ===")
+print(">>> app.py params: broker, db_path")
 print(broker)
 # print(port)
 print(db_path)
@@ -23,8 +23,8 @@ with open(db_path+"example.txt", "w") as file:
 
 
 # Define the topic to subscribe to
-topics = [("status/#", 0)]
-# topics = [("controller/#", 0), ("datacollector/#", 0), ("mobile/#", 0), ("var/#", 0), ("varfast/#", 0)]
+# topics = [("status/#", 0)]
+topics = [("controller/#", 0), ("datacollector/#", 0), ("mobile/#", 0), ("var/#", 0), ("varfast/#", 0)]
 # topics = [("status/#", 0), ("controller/#", 0), ("datacollector/#", 0), ("mobile/#", 0), ("var/#", 0), ("varfast/#", 0)]
 
 ##### VARIABLES END  ######
@@ -40,7 +40,8 @@ def on_message(client, userdata, message):
     # print(f">> Received message '{message_payload}' on topic '{message.topic}' with QoS {message.qos}")
     sqlitehelper.insert_message(message_payload, message.topic)
     # sqlitehelper.insert_message(message.payload.decode(), message.topic)
-    client.publish("logs/mqttlogger", "new msg!")
+    client.publish("logs/mqttlogger", f"msg from {message.topic} len={len(message_payload)} logged")
+    print(f">>> msg from {message.topic} len={len(message_payload)} logged")
 # Define the callback function for when the client connects to the broker
 def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
