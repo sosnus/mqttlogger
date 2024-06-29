@@ -6,7 +6,9 @@ import os
 # Define the MQTT broker and port
 broker = os.getenv("V_BROKER")
 topic_str = os.getenv("V_TOPICS")
+# topic_str = "controller,datacollector,mobile,var,varfast,logs,status" # example
 db_path = "/tmp/mqttlogger/mqtt-logs/"
+version = "v1.0.14___2024-06-29"
 # if broker == None:
     # broker = "192.168.88.203"
 if topic_str == None:
@@ -15,15 +17,14 @@ if broker == None:
     print("NO broker PARAM!")
 ##### VARIABLES END  ######
 
-print(">>> build time: 2024-06-29v11")
+print(f">>> build version & time: {version}")
 print(">>> === RUN MQTTLOGGER (app.py) ===")
 print(">>> app.py params: broker, db_path")
 print(broker)
 print(db_path)
 sqlitehelper.check_path(db_path)
 with open(db_path+"init_log.txt", "w") as file:
-    file.write("mqttlogger-run!")
-# topic_str = "controller,datacollector,mobile,var,varfast"
+    file.write(version)
 topic_list = topic_str.split(',')
 topics = list((str(item)+"/#", 0) for item in topic_list)
 
