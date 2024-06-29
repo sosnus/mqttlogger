@@ -1,6 +1,8 @@
 import paho.mqtt.client as mqtt
 import sqlitehelper as sqlitehelper
 import os
+# temporary lib
+import time
 
 ##### VARIABLES START ######
 # Define the MQTT broker and port
@@ -9,7 +11,7 @@ db_path = "/tmp/mqttlogger/mqtt-logs/"
 # db_path = os.getenv("V_DB_PATH")
 if broker == None:
     broker = "192.168.88.203"
-    # db_path = "/var/mqttlogger/mqtt-logs/"
+    # db_path = "/tmp/mqttlogger/mqtt-logs/"
 
 
 print(">>> build time: 2024-06-29v08")
@@ -21,17 +23,23 @@ print(db_path)
 sqlitehelper.check_path(db_path)
 with open(db_path+"init_log.txt", "w") as file:
     file.write("mqttlogger-run!")
-
+topic_str = "controller,datacollector,mobile,var,varfast"
+topic_list = topic_str.split(',')
+# ["controller","datacollector","mobile","var","varfast"]
+print(topic_list)
 
 # Define the topic to subscribe to
 # topics = [("status/#", 0)]
-topics = [("controller/#", 0), ("datacollector/#", 0), ("mobile/#", 0), ("var/#", 0), ("varfast/#", 0)]
-# topics = [("status/#", 0), ("controller/#", 0), ("datacollector/#", 0), ("mobile/#", 0), ("var/#", 0), ("varfast/#", 0)]
 
+topics2 = [("controller/#", 0), ("datacollector/#", 0), ("mobile/#", 0), ("var/#", 0), ("varfast/#", 0)]
+# topics = [("status/#", 0), ("controller/#", 0), ("datacollector/#", 0), ("mobile/#", 0), ("var/#", 0), ("varfast/#", 0)]
+topics = list((str(item)+"/#", 0) for item in topic_list)
 ##### VARIABLES END  ######
 
+print(f">>> subscribe topics: {topic_list}")
 print(f">>> subscribe topics: {topics}")
-
+print(f">>> subscribe topics: {topics2}")
+time.sleep(10)
 # Define the callback function for when a message is received
 def on_message(client, userdata, message):
     message_payload = message.payload.decode('utf-8',errors='replace')
