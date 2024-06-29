@@ -12,9 +12,14 @@ version = "v1.0.15___2024-06-29"
 # if broker == None:
     # broker = "192.168.88.203"
 if topic_str == None:
-    print("NO topic_str PARAM!")
+    print(">>> ERR: NO topic_str PARAM!")
+    topic_str = "controller,datacollector,mobile,var,varfast,status" # example
+    # topic_str = "controller,datacollector,mobile,var,varfast,logs,status" # example
+    time.sleep(1)
 if broker == None:
-    print("NO broker PARAM!")
+    print(">>> ERR: NO broker PARAM!")
+    broker = "192.168.88.203" # example
+    time.sleep(1)
 ##### VARIABLES END  ######
 
 print(f">>> build version & time: {version}")
