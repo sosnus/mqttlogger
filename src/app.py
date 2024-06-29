@@ -33,8 +33,13 @@ print(f">>> subscribe topics: {topics}")
 
 # Define the callback function for when a message is received
 def on_message(client, userdata, message):
-    print(f"Received message '{message.payload.decode()}' on topic '{message.topic}' with QoS {message.qos}")
-    sqlitehelper.insert_message(message.payload.decode(), message.topic)
+    message_payload = message.payload.decode('utf-8',errors='replace')
+    # message_payload = message_payload.
+    # print(f"Received message '{message.payload.decode()}' on topic '{message.topic}' with QoS {message.qos}")
+    # print(f">> Received message '{message.payload}' on topic '{message.topic}' with QoS {message.qos}")
+    # print(f">> Received message '{message_payload}' on topic '{message.topic}' with QoS {message.qos}")
+    sqlitehelper.insert_message(message_payload, message.topic)
+    # sqlitehelper.insert_message(message.payload.decode(), message.topic)
     client.publish("logs/mqttlogger", "new msg!")
 # Define the callback function for when the client connects to the broker
 def on_connect(client, userdata, flags, rc, properties=None):
