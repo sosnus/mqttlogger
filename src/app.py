@@ -21,10 +21,13 @@ with open(db_path+"example.txt", "w") as file:
 
 
 # Define the topic to subscribe to
-# topics = [("status/#", 0), ("var/#", 0)]
-topics = [("status/#", 0), ("controller/#", 0), ("datacollector/#", 0), ("mobile/#", 0), ("var/#", 0), ("varfast/#", 0)]
+topics = [("status/#", 0)]
+# topics = [("controller/#", 0), ("datacollector/#", 0), ("mobile/#", 0), ("var/#", 0), ("varfast/#", 0)]
+# topics = [("status/#", 0), ("controller/#", 0), ("datacollector/#", 0), ("mobile/#", 0), ("var/#", 0), ("varfast/#", 0)]
 
 ##### VARIABLES END  ######
+
+print(f">>> subscribe topics: {topics}")
 
 # Define the callback function for when a message is received
 def on_message(client, userdata, message):
