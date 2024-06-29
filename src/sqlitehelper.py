@@ -24,6 +24,8 @@ def insert_message(message, topic):
     # print(message_processed)
     global whole_path_global
     received_time = datetime.now()
+
+    received_time = received_time.isoformat()
     conn = sqlite3.connect(whole_path_global)
     cursor = conn.cursor()
     cursor.execute("INSERT INTO messages (received_time, message, topic) VALUES (?, ?, ?)", (received_time, message_processed, topic))
