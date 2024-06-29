@@ -1,5 +1,5 @@
 #!/bin/bash
-tag="v14"
+tag="v15"
 echo $tag
 # sudo docker build --tag sosnus15/mqttlogger:v04 .
 docker build --platform arm64 --tag sosnus15/mqttlogger:$tag .
