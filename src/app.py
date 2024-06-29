@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import sqlitehelper as sqlitehelper
 import os
+import time
 
 ##### VARIABLES START ######
 # Define the MQTT broker and port
@@ -8,16 +9,16 @@ broker = os.getenv("V_BROKER")
 topic_str = os.getenv("V_TOPICS")
 # topic_str = "controller,datacollector,mobile,var,varfast,logs,status" # example
 db_path = "/tmp/mqttlogger/mqtt-logs/"
-version = "v1.0.15___2024-06-29"
+version = "v1.0.17___2024-06-29"
 # if broker == None:
     # broker = "192.168.88.203"
 if topic_str == None:
-    print(">>> ERR: NO topic_str PARAM!")
+    print(">>> [ERR] NO topic_str PARAM!")
     topic_str = "controller,datacollector,mobile,var,varfast,status" # example
     # topic_str = "controller,datacollector,mobile,var,varfast,logs,status" # example
     time.sleep(1)
 if broker == None:
-    print(">>> ERR: NO broker PARAM!")
+    print(">>> [ERR] NO broker PARAM!")
     broker = "192.168.88.203" # example
     time.sleep(1)
 ##### VARIABLES END  ######
@@ -48,6 +49,7 @@ def on_connect(client, userdata, flags, rc, properties=None):
         print(">>> Connected successfully")
         client.publish("mqttlogger/mqttlogger", "Connected successfully")
         sqlitehelper.insert_message("Connected successfully", "mqttlogger/ok")
+        sqlitehelper.insert_message(str(topics), "mqttlogger/subscribed_topics")
         # Subscribe to the topic
         client.subscribe(topics)
     else:
