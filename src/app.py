@@ -42,7 +42,7 @@ def on_message(client, userdata, message):
     message_payload = message.payload.decode('utf-8',errors='replace')
     sqlitehelper.insert_message(message_payload, message.topic)
     client.publish("mqttlogger/mqttlogger", f"msg from {message.topic} len={len(message_payload)} logged")
-    print(f">>> msg from {message.topic} len={len(message_payload)} logged")
+    print(f">>> msg from {message.topic} len={len(message_payload)} logged {datetime.now()}")
 # Define the callback function for when the client connects to the broker
 def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
