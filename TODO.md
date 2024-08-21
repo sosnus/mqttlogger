@@ -9,3 +9,4 @@ add special meta-command to restart app and create new .db file
 * automate build for all platforms using buildx
 * add tag latest
 * add one extra test parameter
+* add datetime at every ">>>"
