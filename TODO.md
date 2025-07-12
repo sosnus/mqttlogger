@@ -14,3 +14,20 @@
 
 # Rejected
 * add special meta-command to restart app and create new .db file - nope, another service will do it    
+
+
+
+# 2025
+* csv
+* variables:
+  * broker (addr or ip)
+  * port
+  * username and password
+  * clientid ???
+* topics???
+* .env file
+* logs with tags to file
+* each run one session
+* cicd docker hub
+* docker compose sample
+* docker cli sample
