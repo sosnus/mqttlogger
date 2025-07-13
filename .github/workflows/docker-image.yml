@@ -22,7 +22,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          username:  ${{ github.owner }} # !!! only if github username == dockerhub username
+          # !!! only if github username == dockerhub username
+          username: ${{ github.owner }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up Docker Buildx
