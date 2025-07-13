@@ -5,8 +5,8 @@ on:
     branches: ["main"]
 
 env:
-  IMAGE_NAME: sosnus15/mqttlogger
-
+# github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
