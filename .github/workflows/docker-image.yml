@@ -7,7 +7,7 @@ on:
 env:
 # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-  DOCKERHUB_USERNAME: ${{ github.repository }}
+  DOCKERHUB_USERNAME: ${{ github.repository_owner }}
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
