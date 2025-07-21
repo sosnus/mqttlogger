@@ -9,3 +9,5 @@
 * podział na pliki po 100MB
 * poprawić pierwsze niepełne wadomości
 * poprawić non-ascii znaki w wiadomościach
+* lista śledzonych topicow
+* miejsce gdzie zapisują się dane
