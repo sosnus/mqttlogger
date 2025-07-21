@@ -27,7 +27,7 @@ def init_db(path):
     # Create the CSV file if it does not exist
     if not os.path.exists(whole_path):
         with open(whole_path, "w") as f:
-            f.write("timestamp,topic,message\n")
+            f.write("timestamp;topic;message\n")
         print(f">>> [csv helper] CSV file created: {whole_path}")
     else:
         print(f">>> [csv helper] CSV file already exists: {whole_path}")
@@ -37,4 +37,4 @@ def insert_message(message, topic):
     # Append a new row to the CSV file with timestamp, topic, and message
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(whole_path_global, "a") as f:
-        f.write(f"{timestamp},{topic},{message}\n")
+        f.write(f"{timestamp};{topic};{message}\n")
