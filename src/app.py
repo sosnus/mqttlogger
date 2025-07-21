@@ -1,5 +1,5 @@
 import paho.mqtt.client as mqtt
-import sqlitehelper as sqlitehelper
+import sqlitehelper as datawriter
 import os
 import time
 
@@ -28,7 +28,7 @@ print(">>> === RUN MQTTLOGGER (app.py) ===")
 print(">>> app.py params: broker, db_path")
 print(broker)
 print(db_path)
-sqlitehelper.check_path(db_path)
+datawriter.check_path(db_path)
 with open(db_path+"init_log.txt", "w") as file:
     file.write(version)
 topic_list = topic_str.split(',')
@@ -40,7 +40,7 @@ print(f">>> subscribe topics list: {topics}")
 # Define the callback function for when a message is received
 def on_message(client, userdata, message):
     message_payload = message.payload.decode('utf-8',errors='replace')
-    sqlitehelper.insert_message(message_payload, message.topic)
+    datawriter.insert_message(message_payload, message.topic)
     client.publish("mqttlogger/mqttlogger", f"msg from {message.topic} len={len(message_payload)} logged")
     print(f">>> msg from {message.topic} len={len(message_payload)} logged {datetime.now()}")
 # Define the callback function for when the client connects to the broker
@@ -48,13 +48,13 @@ def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
         print(">>> Connected successfully")
         client.publish("mqttlogger/mqttlogger", "Connected successfully")
-        sqlitehelper.insert_message("Connected successfully", "mqttlogger/ok")
-        sqlitehelper.insert_message(str(topics), "mqttlogger/subscribed_topics")
+        datawriter.insert_message("Connected successfully", "mqttlogger/ok")
+        datawriter.insert_message(str(topics), "mqttlogger/subscribed_topics")
         # Subscribe to the topic
         client.subscribe(topics)
     else:
         print(f">>> Connect failed with code {rc}")
-        sqlitehelper.insert_message("Connect failed with code {rc}", "mqttlogger/error")
+        datawriter.insert_message("Connect failed with code {rc}", "mqttlogger/error")
 
 # Create an MQTT client instance
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2,protocol=mqtt.MQTTv5)
@@ -63,10 +63,10 @@ client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2,protocol=mqtt.MQTTv5)
 client.on_connect = on_connect
 client.on_message = on_message
 
-sqlitehelper.init_db(db_path)
+datawriter.init_db(db_path)
 message = "Init logger!"
 topic = "mqttlogger/ok"
-sqlitehelper.insert_message(message, topic)
+datawriter.insert_message(message, topic)
 
 # Connect to the MQTT broker
 client.connect(broker, 1883, 60)
