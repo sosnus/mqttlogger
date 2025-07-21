@@ -35,7 +35,7 @@ def init_db(path):
 
 def insert_message(message, topic):
     # Remove tabs and newlines from message
-    clean_message = message.replace('\n', '').replace('\r', '').replace('\t', '')
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    clean_message = message.replace('\n', '').replace('\r', '').replace('\t', '').replace(';', '@')
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")
     with open(whole_path_global, "a") as f:
         f.write(f"{timestamp};{topic};{clean_message}\n")
