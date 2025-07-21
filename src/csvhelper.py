@@ -34,7 +34,8 @@ def init_db(path):
     
 
 def insert_message(message, topic):
-    # Append a new row to the CSV file with timestamp, topic, and message
+    # Remove tabs and newlines from message
+    clean_message = message.replace('\n', '').replace('\r', '').replace('\t', '')
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(whole_path_global, "a") as f:
-        f.write(f"{timestamp};{topic};{message}\n")
+        f.write(f"{timestamp};{topic};{clean_message}\n")
