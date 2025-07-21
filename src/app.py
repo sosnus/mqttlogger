@@ -1,7 +1,9 @@
 import paho.mqtt.client as mqtt
-import sqlitehelper as datawriter
+# import sqlitehelper as datawriter
+import csvhelper as datawriter
 import os
 import time
+from datetime import datetime
 
 ##### VARIABLES START ######
 # Define the MQTT broker and port
@@ -19,7 +21,7 @@ if topic_str == None:
     time.sleep(1)
 if broker == None:
     print(">>> [ERR] NO broker PARAM!")
-    broker = "192.168.88.203" # example
+    broker = "192.168.88.202" # example
     time.sleep(1)
 ##### VARIABLES END  ######
 
