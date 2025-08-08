@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mqttlogger:
-    image: sosnus15/mqttlogger
+    image: sosnus/mqttlogger
     container_name: mqttlogger_container
     restart: always
     environment:
