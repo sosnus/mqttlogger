@@ -45,7 +45,8 @@ def on_message(client, userdata, message):
     datawriter.insert_message(message_payload, message.topic)
     client.publish("mqttlogger/mqttlogger", f"msg from {message.topic} len={len(message_payload)} logged")
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")
-    print(f">>> msg from {message.topic} len={len(message_payload)} logged {timestamp}")
+    print(f">>> msg from {message.topic} len={len(message_payload)} logged {datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")}")
+    # print(f">>> msg from {message.topic} len={len(message_payload)} logged {timestamp}")
 # Define the callback function for when the client connects to the broker
 def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
