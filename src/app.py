@@ -11,7 +11,7 @@ broker = os.getenv("V_BROKER")
 topic_str = os.getenv("V_TOPICS")
 # topic_str = "controller,datacollector,mobile,var,varfast,logs,status" # example
 db_path = "/tmp/mqttlogger/mqtt-logs/"
-version = "v1.0.17___2024-06-29"
+version = "v2.1.20___2025-08-08"
 # if broker == None:
     # broker = "192.168.88.203"
 if topic_str == None:
@@ -33,6 +33,8 @@ print(db_path)
 datawriter.check_path(db_path)
 with open(db_path+"init_log.txt", "w") as file:
     file.write(version)
+    file.write(broker)
+    file.write(topic_str)
 topic_list = topic_str.split(',')
 topics = list((str(item)+"/#", 0) for item in topic_list)
 
