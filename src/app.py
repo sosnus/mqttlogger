@@ -11,7 +11,7 @@ from datetime import datetime
 broker = os.getenv("V_BROKER")
 topic_str = os.getenv("V_TOPICS")
 # topic_str = "controller,datacollector,mobile,var,varfast,logs,status" # example
-db_path = "/tmp/mqttlogger/mqtt-logs/"
+db_path = "/var/mqttlogger/mqtt-logs/"
 version = "v2.2.22___2025-08-13"
 # if broker == None:
     # broker = "192.168.88.203"
