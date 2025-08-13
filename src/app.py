@@ -1,3 +1,4 @@
+import sys
 import paho.mqtt.client as mqtt
 # import sqlitehelper as datawriter
 import csvhelper as datawriter
@@ -15,13 +16,13 @@ version = "v2.2.22___2025-08-13"
 # if broker == None:
     # broker = "192.168.88.203"
 if topic_str == None:
-    print(">>> [ERR] NO topic_str PARAM!")
-    topic_str = "controller,datacollector,mobile,var,varfast,status" # example
-    # topic_str = "controller,datacollector,mobile,var,varfast,logs,status" # example
+    print(">>> [WARN] NO topic_str PARAM!")
+    topic_str = "controller,datacollector,mobile,var,varfast,status,mqttloggercommands" # example
+    # topic_str = "controller,datacollector,mobile,var,varfast,logs,status,mqttlogger" # example
     time.sleep(1)
 if broker == None:
-    print(">>> [ERR] NO broker PARAM!")
-    broker = "192.168.88.202" # example
+    print(">>> [WARN] NO broker PARAM!")
+    broker = "192.168.88.203" # example
     time.sleep(1)
 ##### VARIABLES END  ######
 
@@ -32,7 +33,7 @@ print(broker)
 print(db_path)
 datawriter.check_path(db_path)
 with open(db_path+"init_log.txt", "a") as file:
-    file.write("MQTT LOGGER - session start" + "\n")
+    file.write("=== MQTT LOGGER - session start" + "\n")
     file.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n")
     file.write(version + "\n")
     file.write(broker + "\n")
@@ -41,6 +42,11 @@ topic_list = topic_str.split(',')
 topics = list((str(item)+"/#", 0) for item in topic_list)
 
 # Here datetime check
+if(datetime.now().year < 2000):
+    with open(db_path+"init_log.txt", "a") as file:
+        file.write("[ERROR] year<2000, restart..." + "\n")
+        print("[ERROR] year<2000, restart..." + "\n")
+        sys.exit(1)
 
 print(f">>> subscribe topics raw: {topic_str}")
 print(f">>> subscribe topics list: {topics}")
@@ -52,6 +58,11 @@ def on_message(client, userdata, message):
     client.publish("mqttlogger/mqttlogger", f"msg from {message.topic} len={len(message_payload)} logged")
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")
     print(f">>> msg from {message.topic} len={len(message_payload)} logged {timestamp}")
+    if(message.topic == "mqttloggercommands"):
+        #TODO: convert this to whole module, not one simple IF
+        print(f">>> special command, EXIT...!")
+        sys.exit(1)
+
     # print(f">>> msg from {message.topic} len={len(message_payload)} logged {timestamp}")
 # Define the callback function for when the client connects to the broker
 def on_connect(client, userdata, flags, rc, properties=None):

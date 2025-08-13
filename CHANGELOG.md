@@ -1,4 +1,9 @@
 # CHANGELOG
+## [2.05.03+20250813(063)] - 2025-08-13
+* dodano zabezpieczenie year < 2000
+* restart na komendę `mqttloggercommands`
+* poprawiono logowanie do plików (końce linii)
+* poprawiono logowanie do plików (append, a nie overwrite)
 ## [2.03.03+20250808(061)] - 2025-08-08
 * dodano więcej informacji debugowych zapisywanych do pliku
 * poprawiono definicję docker compose oraz adres do docker container registry
