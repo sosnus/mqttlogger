@@ -11,7 +11,7 @@ broker = os.getenv("V_BROKER")
 topic_str = os.getenv("V_TOPICS")
 # topic_str = "controller,datacollector,mobile,var,varfast,logs,status" # example
 db_path = "/tmp/mqttlogger/mqtt-logs/"
-version = "v2.1.20___2025-08-08"
+version = "v2.2.22___2025-08-13"
 # if broker == None:
     # broker = "192.168.88.203"
 if topic_str == None:
@@ -31,12 +31,16 @@ print(">>> app.py params: broker, db_path")
 print(broker)
 print(db_path)
 datawriter.check_path(db_path)
-with open(db_path+"init_log.txt", "w") as file:
-    file.write(version)
-    file.write(broker)
-    file.write(topic_str)
+with open(db_path+"init_log.txt", "a") as file:
+    file.write("MQTT LOGGER - session start" + "\n")
+    file.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n")
+    file.write(version + "\n")
+    file.write(broker + "\n")
+    file.write(topic_str + "\n")
 topic_list = topic_str.split(',')
 topics = list((str(item)+"/#", 0) for item in topic_list)
+
+# Here datetime check
 
 print(f">>> subscribe topics raw: {topic_str}")
 print(f">>> subscribe topics list: {topics}")
@@ -47,7 +51,7 @@ def on_message(client, userdata, message):
     datawriter.insert_message(message_payload, message.topic)
     client.publish("mqttlogger/mqttlogger", f"msg from {message.topic} len={len(message_payload)} logged")
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")
-    print(f">>> msg from {message.topic} len={len(message_payload)} logged {datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")}")
+    print(f">>> msg from {message.topic} len={len(message_payload)} logged {timestamp}")
     # print(f">>> msg from {message.topic} len={len(message_payload)} logged {timestamp}")
 # Define the callback function for when the client connects to the broker
 def on_connect(client, userdata, flags, rc, properties=None):
