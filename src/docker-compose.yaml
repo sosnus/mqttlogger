@@ -2,14 +2,14 @@ version: '3.8'
 
 services:
   mqttlogger:
-    image: sosnus/mqttlogger:2025-08-08-140217
+    image: sosnus/mqttlogger:2025-08-13-014044
     container_name: mqttlogger_container
     restart: always
     environment:
       V_BROKER: "10.10.10.210"
-      V_TOPICS: "controller,datacollector,mobile,var,varfast,logs,status"
+      V_TOPICS: "controller,datacollector,mobile,var,varfast,logs,status,mqttloggercommands"
       TZ: "Europe/Warsaw"
       LANG: "pl_PL.UTF-8"
       LC_ALL: "pl_PL.UTF-8"
     volumes:
-        - /var/SOMETHING/mqttlogger/:/tmp/mqttlogger/
+        - /var/SOMETHING/mqttlogger/:/var/mqttlogger/
