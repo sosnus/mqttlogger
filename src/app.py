@@ -61,6 +61,8 @@ def on_message(client, userdata, message):
     if(message.topic == "mqttloggercommands"):
         #TODO: convert this to whole module, not one simple IF
         print(f">>> special command, EXIT...!")
+        with open(db_path+"init_log.txt", "a") as file:
+            file.write("!!! special command:mqttloggercommands, exit!" + "\n")
         sys.exit(1)
 
     # print(f">>> msg from {message.topic} len={len(message_payload)} logged {timestamp}")
